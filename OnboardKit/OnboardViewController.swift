@@ -52,8 +52,8 @@ final public class OnboardViewController: UIViewController {
     pageViewController.view.frame = view.bounds
 
     let pageControlApperance = UIPageControl.appearance(whenContainedInInstancesOf: [OnboardViewController.self])
-    pageControlApperance.pageIndicatorTintColor = appearanceConfiguration.tintColor.withAlphaComponent(0.3)
-    pageControlApperance.currentPageIndicatorTintColor = appearanceConfiguration.tintColor
+    pageControlApperance.pageIndicatorTintColor = UIColor.white.withAlphaComponent(0.1)
+    pageControlApperance.currentPageIndicatorTintColor = .white
 
     addChild(pageViewController)
     view.addSubview(pageViewController.view)
@@ -70,13 +70,7 @@ final public class OnboardViewController: UIViewController {
   }
 
   private func advanceToPageWithIndex(_ pageIndex: Int) {
-    DispatchQueue.main.async { [weak self] in
-      guard let nextPage = self?.pageViwControllerFor(pageIndex: pageIndex) else { return }
-      self?.pageViewController.setViewControllers([nextPage],
-                                                  direction: .forward,
-                                                  animated: true,
-                                                  completion: nil)
-    }
+    dismiss(animated: true, completion: self.completion)
   }
 }
 
@@ -129,13 +123,16 @@ extension OnboardViewController: UIPageViewControllerDelegate {
 extension OnboardViewController: OnboardPageViewControllerDelegate {
 
   func pageViewController(_ pageVC: OnboardPageViewController, actionTappedAt index: Int) {
-    if let pageAction = pageItems[index].action {
-      pageAction({ (success, error) in
-        guard error == nil else { return }
-        if success {
-          self.advanceToPageWithIndex(index + 1)
+    if index == pageItems.count - 1 {
+        dismiss(animated: true, completion: self.completion)
+    } else {
+        DispatchQueue.main.async { [weak self] in
+          guard let nextPage = self?.pageViwControllerFor(pageIndex: index + 1) else { return }
+          self?.pageViewController.setViewControllers([nextPage],
+                                                      direction: .forward,
+                                                      animated: true,
+                                                      completion: nil)
         }
-      })
     }
   }
 

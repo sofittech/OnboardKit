@@ -37,13 +37,14 @@ internal final class OnboardPageViewController: UIViewController {
     let label = UILabel()
     label.translatesAutoresizingMaskIntoConstraints = false
     label.font = UIFont.preferredFont(forTextStyle: .title1)
-    label.numberOfLines = 0
     label.textAlignment = .center
     return label
   }()
 
   private lazy var imageView: UIImageView = {
     let imageView = UIImageView()
+    imageView.backgroundColor = UIColor.white.withAlphaComponent(0.4)
+    imageView.layer.cornerRadius = 15
     imageView.translatesAutoresizingMaskIntoConstraints = false
     return imageView
   }()
@@ -103,17 +104,19 @@ internal final class OnboardPageViewController: UIViewController {
   private func customizeButtonsWith(_ appearanceConfiguration: OnboardViewController.AppearanceConfiguration) {
     advanceButton.sizeToFit()
     if let advanceButtonStyling = appearanceConfiguration.advanceButtonStyling {
+        advanceButton.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .medium)
       advanceButtonStyling(advanceButton)
     } else {
       advanceButton.setTitleColor(appearanceConfiguration.tintColor, for: .normal)
-      advanceButton.titleLabel?.font = appearanceConfiguration.textFont
+      advanceButton.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .medium)
     }
-    actionButton.sizeToFit()
+    
     if let actionButtonStyling = appearanceConfiguration.actionButtonStyling {
+        actionButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
       actionButtonStyling(actionButton)
     } else {
-      actionButton.setTitleColor(appearanceConfiguration.tintColor, for: .normal)
-      actionButton.titleLabel?.font = appearanceConfiguration.titleFont
+        actionButton.setTitleColor(appearanceConfiguration.tintColor, for: .normal)
+      actionButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
     }
   }
 
@@ -124,7 +127,7 @@ internal final class OnboardPageViewController: UIViewController {
     NSLayoutConstraint.activate([
       titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
       titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16.0),
-      pageStackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16.0),
+      pageStackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 100.0),
       pageStackView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
       pageStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
       pageStackView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor)
@@ -158,15 +161,16 @@ internal final class OnboardPageViewController: UIViewController {
 
   private func configureTitleLabel(_ title: String) {
     titleLabel.text = title
-    NSLayoutConstraint.activate([
-      titleLabel.widthAnchor.constraint(equalTo: pageStackView.widthAnchor, multiplier: 0.8)
-      ])
   }
 
   private func configureImageView(_ imageName: String?) {
     if let imageName = imageName, let image = UIImage(named: imageName) {
       imageView.image = image
       imageView.heightAnchor.constraint(equalTo: pageStackView.heightAnchor, multiplier: 0.5).isActive = true
+        imageView.widthAnchor.constraint(equalTo: pageStackView.widthAnchor, multiplier: 0.8).isActive = true
+        NSLayoutConstraint.activate([actionButton.heightAnchor.constraint(equalToConstant: 44.0),
+            actionButton.widthAnchor.constraint(equalTo: pageStackView.widthAnchor, multiplier: 0.8),
+          ])
     } else {
       imageView.isHidden = true
     }
@@ -176,8 +180,9 @@ internal final class OnboardPageViewController: UIViewController {
     if let pageDescription = description {
       descriptionLabel.text = pageDescription
       NSLayoutConstraint.activate([
-        descriptionLabel.heightAnchor.constraint(greaterThanOrEqualTo: pageStackView.heightAnchor, multiplier: 0.2),
-        descriptionLabel.widthAnchor.constraint(equalTo: pageStackView.widthAnchor, multiplier: 0.8)
+        descriptionLabel.heightAnchor.constraint(greaterThanOrEqualTo: pageStackView.heightAnchor, multiplier: 0.1),
+        descriptionLabel.widthAnchor.constraint(equalTo: pageStackView.widthAnchor, multiplier: 0.8),
+        descriptionLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -45)
         ])
     } else {
       descriptionLabel.isHidden = true
@@ -187,6 +192,8 @@ internal final class OnboardPageViewController: UIViewController {
   private func configureActionButton(_ title: String?, action: OnboardPageAction?) {
     if let actionButtonTitle = title {
       actionButton.setTitle(actionButtonTitle, for: .normal)
+        actionButton.backgroundColor =  UIColor(red: 126/255.0, green: 21/255.0, blue: 24/255.0, alpha: 1.0)
+        actionButton.layer.cornerRadius = 22
     } else {
       actionButton.isHidden = true
     }

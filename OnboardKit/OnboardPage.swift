@@ -38,7 +38,7 @@ public struct OnboardPage {
   public init(title: String,
               imageName: String? = nil,
               description: String?,
-              advanceButtonTitle: String = NSLocalizedString("Next", comment: ""),
+              advanceButtonTitle: String = NSLocalizedString("SKIP", comment: ""),
               actionButtonTitle: String? = nil,
               action: OnboardPageAction? = nil) {
     self.title = title
