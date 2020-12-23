@@ -34,18 +34,21 @@ public struct OnboardPage {
   ///
   /// - note: calling the completion on the action will advance the onboarding to the next page
   let action: OnboardPageAction?
+  let showSkipButton: Bool
 
   public init(title: String,
               imageName: String? = nil,
               description: String?,
               advanceButtonTitle: String = NSLocalizedString("SKIP", comment: ""),
               actionButtonTitle: String? = nil,
-              action: OnboardPageAction? = nil) {
+              action: OnboardPageAction? = nil,
+              showSkipButton: Bool = true) {
     self.title = title
     self.imageName = imageName
     self.description = description
     self.advanceButtonTitle = advanceButtonTitle
     self.actionButtonTitle = actionButtonTitle
     self.action = action
+    self.showSkipButton = showSkipButton
   }
 }

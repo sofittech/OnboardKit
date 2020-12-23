@@ -157,6 +157,9 @@ internal final class OnboardPageViewController: UIViewController {
     configureDescriptionLabel(page.description)
     configureActionButton(page.actionButtonTitle, action: page.action)
     configureAdvanceButton(page.advanceButtonTitle)
+    if !page.showSkipButton {
+        advanceButton.isHidden = true
+    }
   }
 
   private func configureTitleLabel(_ title: String) {
