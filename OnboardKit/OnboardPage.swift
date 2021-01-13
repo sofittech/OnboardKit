@@ -35,6 +35,7 @@ public struct OnboardPage {
   /// - note: calling the completion on the action will advance the onboarding to the next page
   let action: OnboardPageAction?
   let showSkipButton: Bool
+    let btnBackGroundColor: UIColor
 
   public init(title: String,
               imageName: String? = nil,
@@ -42,7 +43,8 @@ public struct OnboardPage {
               advanceButtonTitle: String = NSLocalizedString("SKIP", comment: ""),
               actionButtonTitle: String? = nil,
               action: OnboardPageAction? = nil,
-              showSkipButton: Bool = true) {
+              showSkipButton: Bool = true,
+              btnBackGroundColor: UIColor = UIColor(red: 126/255.0, green: 21/255.0, blue: 24/255.0, alpha: 1.0)) {
     self.title = title
     self.imageName = imageName
     self.description = description
@@ -50,5 +52,6 @@ public struct OnboardPage {
     self.actionButtonTitle = actionButtonTitle
     self.action = action
     self.showSkipButton = showSkipButton
+    self.btnBackGroundColor = btnBackGroundColor
   }
 }

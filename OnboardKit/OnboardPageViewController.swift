@@ -157,6 +157,7 @@ internal final class OnboardPageViewController: UIViewController {
     configureDescriptionLabel(page.description)
     configureActionButton(page.actionButtonTitle, action: page.action)
     configureAdvanceButton(page.advanceButtonTitle)
+    actionButton.backgroundColor = page.btnBackGroundColor
     if !page.showSkipButton {
         advanceButton.isHidden = true
     }
@@ -195,7 +196,6 @@ internal final class OnboardPageViewController: UIViewController {
   private func configureActionButton(_ title: String?, action: OnboardPageAction?) {
     if let actionButtonTitle = title {
       actionButton.setTitle(actionButtonTitle, for: .normal)
-        actionButton.backgroundColor =  UIColor(red: 126/255.0, green: 21/255.0, blue: 24/255.0, alpha: 1.0)
         actionButton.layer.cornerRadius = 22
     } else {
       actionButton.isHidden = true
