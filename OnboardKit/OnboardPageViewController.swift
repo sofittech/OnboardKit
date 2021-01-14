@@ -43,7 +43,6 @@ internal final class OnboardPageViewController: UIViewController {
 
   private lazy var imageView: UIImageView = {
     let imageView = UIImageView()
-    imageView.backgroundColor = UIColor.white.withAlphaComponent(0.4)
     imageView.layer.cornerRadius = 15
     imageView.translatesAutoresizingMaskIntoConstraints = false
     return imageView
@@ -158,6 +157,9 @@ internal final class OnboardPageViewController: UIViewController {
     configureActionButton(page.actionButtonTitle, action: page.action)
     configureAdvanceButton(page.advanceButtonTitle)
     actionButton.backgroundColor = page.btnBackGroundColor
+    imageView.backgroundColor = page.imageBackgroundColor
+    imageView.layer.borderWidth = page.imageBorderwidth
+    imageView.layer.borderColor = page.imageBorderColor.cgColor
     if !page.showSkipButton {
         advanceButton.isHidden = true
     }
